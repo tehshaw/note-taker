@@ -11,27 +11,26 @@ notes.post('/notes', (req, res, next) => {
     console.info("Notes.post called")
 })
 
-notes.use('/notes', (req, res) => {
+notes.use('/notes', (req, res, next) => {
     console.info("Notes.delete called")
-    console.info(req.path)
-
     const path = parseInt(req.path.slice(1));
     const test = /\b\d+\b/;
     
     if(test.test(path) ){
-        console.info("true")
+        console.info("Valid delete request")
         next()
     }else{
+        console.info("Invalid delete request " + req.originalUrl)
         res.status(404).send("Invalid request")
         // throw new Error("Invalid request")
     }
 
-})
+}, function (req, res, next) {
 
-notes.delete('/notes', (req, res) => {
-    
-})
+    res.send("Delete request received")
+    console.info("Delete processed")
 
+})
 
 
 
