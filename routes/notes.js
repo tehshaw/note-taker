@@ -11,11 +11,13 @@ notes.post('/', (req, res, next) => {
     console.info("Notes.post called")
 
     if (req.body) {
+        console.info("Valid write request")
         next()
     } else {
     res.error('Error in adding tip');
     }
 }, async function (req, res, next) {
+    
     const { title, text} = req.body;
     const notes = JSON.parse( await readFromFile('./db/db.json'))
    
@@ -34,7 +36,7 @@ notes.post('/', (req, res, next) => {
 
 })
 
-notes.use('/:id', (req, res, next) => {
+notes.delete('/:id', (req, res, next) => {
     console.info("Notes.delete called")
   
     if(req.params.id){
