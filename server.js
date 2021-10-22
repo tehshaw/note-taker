@@ -6,26 +6,34 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+app.use(express.static(__dirname + '/public'));
+
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/notes', notes)
 
-app.use(express.static('public'));
+
 
 // GET Route for homepage
-app.get('/', (req, res) =>
-  res.sendFile('./index.html')
-);
+app.get('/', (req, res) => {
+  let options = {
+    root: path.join(__dirname, 'public')
+  }
+  res.sendFile('/index.html',options)
+});
 
 // GET Route for notes page
-app.get('/notes', (req, res) =>
-  res.sendFile('./notes.html')
-);
+app.get('/notes', (req, res) => {
+  let options = {
+    root: path.join(__dirname, 'public')
+  }
+  res.sendFile('/notes.html', options);
+});
 
 // GET Route for feedback page
 app.get('*', (req, res) =>
-  res.sendFile('./404.html')
+  res.status(404).redirect('./404.html')
 );
 
 app.listen(PORT, () =>
