@@ -15,17 +15,17 @@ app.use(express.static('public'));
 
 // GET Route for homepage
 app.get('/', (req, res) =>
-  res.sendFile('./public/index.html')
+  res.sendFile('./index.html')
 );
 
 // GET Route for notes page
 app.get('/notes', (req, res) =>
-  res.sendFile('./public/notes.html')
+  res.sendFile('./notes.html')
 );
 
 // GET Route for feedback page
 app.get('*', (req, res) =>
-  res.sendFile('./public/404.html')
+  res.sendFile('./404.html')
 );
 
 app.listen(PORT, () =>
